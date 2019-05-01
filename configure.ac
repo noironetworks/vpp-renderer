@@ -34,6 +34,15 @@ AC_ARG_WITH(buildversion,
             [bversion='private'])
 AC_SUBST(BVERSION, [${bversion}])
 
+AC_ARG_ENABLE([checking-vpp-dependencies],
+[  --disable-checking-vpp-dependencies  Turn off checking vpp dependencies],
+[case "${enableval}" in
+ yes) vpp_dependencies=true ;;
+ no) vpp_dependencies=false ;;
+ *) AC_MSG_ERROR([bad value ${enableval} for --enable-checking-vpp-dependencies]) ;;
+ esac],[vpp_dependencies=true])
+AM_CONDITIONAL([VPP_DEPENDENCIES], [test x$vpp_dependencies = xtrue])
+
 # allow to create final builds with assert()s disabled
 AC_HEADER_ASSERT
 
@@ -54,17 +63,20 @@ AX_CXX_COMPILE_STDCXX([11], [], [mandatory])
 AC_STDC_HEADERS
 
 PKG_CHECK_MODULES([libopflex_agent], [libopflex_agent >= 1.7.0])
-AC_SUBST(libopflex_agent_VERSION, [$($PKG_CONFIG --modversion libopflex_agent)])
+#AC_SUBST(libopflex_agent_VERSION, [$($PKG_CONFIG --modversion libopflex_agent)])
 # Check for VPP libraries
-AC_CHECK_LIB([svm], [svm_fifo_segment_create], [],
+AM_COND_IF(
+[VPP_DEPENDENCIES],
+[AC_CHECK_LIB([svm], [svm_fifo_segment_create], [],
              [AC_MSG_ERROR([SVM not found])])
 AC_CHECK_LIB([vppinfra], [clib_calljmp], [],
              [AC_MSG_ERROR([vppinfra not found])])
 AC_CHECK_LIB([vapiclient], [vapi_connect], [],
              [AC_MSG_ERROR([vapiclient not found])])
-AC_CHECK_LIB(boost_system, main)
-AC_CHECK_LIB(vom, main)
+AC_CHECK_LIB(vom, main)]
+)
 
+AC_CHECK_LIB(boost_system, main)
 AX_BOOST_BASE([1.53.0], [], AC_MSG_ERROR([Boost is required]))
 AX_BOOST_UNIT_TEST_FRAMEWORK
 if test "x$ax_cv_boost_unit_test_framework" != xyes; then
