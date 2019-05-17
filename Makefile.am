@@ -128,3 +128,27 @@ srpm: dist rpm/opflex-agent-renderer-vpp.spec
 	rpmbuild ${RPMFLAGS} -bs rpm/opflex-agent-renderer-vpp.spec
 	cp rpm/SRPMS/*.rpm .
 	rm -rf ${RPMDIRS}
+
+EXTRA_DIST =debian
+EXTRA_DIST += debian/changelog debian/rules debian/control debian/compat \
+	debian/source/format debian/copyright
+
+deb: dist deb-pkg-build
+	- rm -rf  deb-pkg-build
+	mkdir -p deb-pkg-build
+	cp $(SOURCE_FILE) deb-pkg-build/
+	tar -C deb-pkg-build/ -xf deb-pkg-build/$(SOURCE_FILE)
+	mv deb-pkg-build/$(SOURCE_FILE) deb-pkg-build/$(PACKAGE)_$(VERSION).orig.tar.gz
+	cd deb-pkg-build/$(PACKAGE)-$(VERSION)/; \
+		dpkg-buildpackage -us -uc -rfakeroot -b
+	cp deb-pkg-build/*.deb .
+	rm -rf deb-pkg-build
+
+dsc: dist
+	- rm -rf  deb-pkg-build
+	mkdir -p deb-pkg-build
+	cp $(SOURCE_FILE) deb-pkg-build/
+	tar -C deb-pkg-build/ -xf deb-pkg-build/$(SOURCE_FILE)
+	mv deb-pkg-build/$(SOURCE_FILE) deb-pkg-build/$(PACKAGE)_$(VERSION).orig.tar.gz
+	cd deb-pkg-build/$(PACKAGE)-$(VERSION)/; \
+		dpkg-buildpackage -d -us -uc -rfakeroot -S

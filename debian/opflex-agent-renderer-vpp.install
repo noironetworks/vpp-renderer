@@ -1,0 +1,3 @@
+usr/lib/*/libopflex_agent_renderer_vpp.so*
+etc/opflex-agent-ovs/plugins.conf.d/plugin-renderer-vpp.conf
+debian/10-opflex-agent-vpp.conf /etc/systemd/system/opflex-agent.service.d/

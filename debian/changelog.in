@@ -1,0 +1,5 @@
+opflex-agent-renderer-vpp (@PACKAGE_VERSION@-@BVERSION@) unstable; urgency=low
+
+  * Opflex Agent Renderer VPP package
+
+ -- Neale Ranns <nranns@cisco.com>  Wed, Nov 7 2018 00:00:00 +0200

@@ -1,4 +1,4 @@
-#
+
 # renderer-vpp: VPP OpFlex agent renderer plugin
 #
 ###########
@@ -12,7 +12,7 @@
 # ---------------------------------------------------------------
 # Initialization
 
-AC_INIT([renderer-vpp], [1.0.0])
+AC_INIT([opflex-agent-renderer-vpp], [1.0.0])
 
 # initialize automake and libtool
 AM_INIT_AUTOMAKE([subdir-objects silent-rules foreign])
@@ -67,7 +67,7 @@ PKG_CHECK_MODULES([libopflex_agent], [libopflex_agent >= 1.7.0])
 # Check for VPP libraries
 AM_COND_IF(
 [VPP_DEPENDENCIES],
-[AC_CHECK_LIB([svm], [svm_fifo_segment_create], [],
+[AC_CHECK_LIB([svm], [fifo_segment_create], [],
              [AC_MSG_ERROR([SVM not found])])
 AC_CHECK_LIB([vppinfra], [clib_calljmp], [],
              [AC_MSG_ERROR([vppinfra not found])])
@@ -89,8 +89,10 @@ fi
 AC_CONFIG_FILES([\
         Makefile \
         plugin-renderer-vpp.conf \
-        rpm/opflex-agent-renderer-vpp.spec
+        rpm/opflex-agent-renderer-vpp.spec \
+        debian/changelog
 	])
+AC_CONFIG_FILES([debian/rules], [chmod +x debian/rules])
 AC_OUTPUT
 
 AC_MSG_NOTICE([

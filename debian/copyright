@@ -1,0 +1,7 @@
+Format: http://www.debian.org/doc/packaging-manuals/copyright-format/1.0/
+Upstream-Name: opflex-agent-renderer-vpp
+Source: https://github.com/opflex-vpp/vpp-renderer
+
+Files: *
+Copyright: Copyright 2019 Cisco Systems, Inc.
+License: Eclipse Public License v1.0

@@ -10,7 +10,7 @@
 %{!?buildversion:%define buildversion @BVERSION@}
 %global _hardened_build 1
 
-Name: renderer-vpp
+Name: opflex-agent-renderer-vpp
 Epoch: 1
 Version: %{packageversion}
 Release: %{buildversion}%{?dist}

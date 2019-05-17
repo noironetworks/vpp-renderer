@@ -1,0 +1,39 @@
+Source: opflex-agent-renderer-vpp
+Priority: optional
+Maintainer: VPP Developers <vpp-dev@lists.fd.io>
+Build-Depends:
+ debhelper (>= 8.0.0), autotools-dev, build-essential,
+ libboost-dev, libboost-system-dev, libboost-test-dev,
+ libopflex-agent-dev, vpp-dev, vpp, vpp-plugin-core,
+ vpp-plugin-dpdk, vom 
+Standards-Version: 3.9.4 
+Section: libs
+Homepage: https://github.com/opflex-vpp/vpp-renderer
+
+Package: libopflex-agent-renderer-vpp-dev
+Section: libdevel
+Architecture: any
+Depends: libopflex-agent-dev, vpp-dev,
+ libvpp-infra-dev, vom 
+Description: Development libraries for VPP renderer module for OpFlex Agent
+ Development libraries for opflexagent renderer-vpp
+
+Package: libopflex-agent-renderer-vpp
+Section: libs
+Architecture: any
+Multi-Arch: same
+Depends: libopflex-agent, vpp, libvpp-infra, vom 
+Description: VPP renderer module for OpFlex Agent
+
+Package: libopflex-agent-renderer-vpp-dbgsym
+Section: debug
+Architecture: any
+Priority: extra
+Depends: libopflex-agent-dbgsym, vpp-dbg,
+ libvpp-infra-dev, vom 
+Description: Debug symbols for Opflex agent renderer-vpp package
+ The OpFlex project seeks to provide reference implementations of the
+ OpFlex protocol, which is a protocol for implementing a distributed
+ control system based on a declarative policy model.
+ This package contains the debugging symbols for (= ${binary:Version}).
+
